@@ -15,6 +15,18 @@ from .views import (
 )
 from . import views
 
+from rest_framework.urlpatterns import format_suffix_patterns
+
+
+#--------------------------------- API -----------------------#
+urlpatterns = [
+    path('api/', views.API_objects.as_view()),
+    path('api/<int:pk>/', views.API_objects_details.as_view()),
+]
+
+urlpatterns = format_suffix_patterns(urlpatterns)
+#-------------------------------------------------------------#
+
 urlpatterns = [
     #urls correspondientes a las paginas de posteo de los usuarios
     path('', PostListView.as_view(), name='blog-home'),
@@ -34,4 +46,10 @@ urlpatterns = [
 
     #url correspondiente a la pagina "sobre nosotros"
     path('about/', views.about, name='blog-about'),
+
+
+    #urls API
+    path('api/', views.API_objects.as_view()),
+    path('api/<int:pk>/', views.API_objects_details.as_view()),
+
 ]

@@ -10,6 +10,18 @@ from django.views.generic import (
 )
 from .models import Post
 from .models import News
+# las importaciones para la API 
+from rest_framework import generics
+from .serializers import NewsSerializer
+#------------- importacines API ---------------------
+from django.http import HttpResponse
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from django.shortcuts import render, redirect, get_object_or_404
+
+from django.http.response import JsonResponse
+from rest_framework.parsers import JSONParser 
+
 
 def home(request):
     context = {
@@ -144,3 +156,16 @@ class NewsDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
 def about(request):
     return render(request, 'blog/about.html', {'title': 'About'})
+
+
+#METODO QUE FUNCIONA
+
+
+#--------------------------- API --------------------------------#
+class API_objects(generics.ListCreateAPIView):
+    queryset = News.objects.all()
+    serializer_class = NewsSerializer
+    
+class API_objects_details(generics.RetrieveUpdateDestroyAPIView):
+    queryset = News.objects.all()
+    serializer_class = NewsSerializer

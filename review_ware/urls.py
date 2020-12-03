@@ -47,6 +47,12 @@ urlpatterns = [
          ),
          name='password_reset_complete'),
     path('', include('blog.urls')),
+
+    #para login
+    path('accounts/', include('allauth.urls')),
+
+    # pwa
+    path('', include('pwa.urls')),
 ]
 
 

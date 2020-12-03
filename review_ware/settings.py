@@ -40,7 +40,21 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'social_django',  # <--- this
+    'social.apps.django_app.default',
+    'pwa',
+    
+    #para login
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
 ]
+
+
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -73,6 +87,31 @@ TEMPLATES = [
 WSGI_APPLICATION = 'review_ware.wsgi.application'
 
 
+
+
+# PWA
+PWA_SERVICE_WORKER_PATH = os.path.join(BASE_DIR, 'static/', 'serviceworker.js')
+
+PWA_APP_NAME = 'Proyecto Review Ware'
+PWA_APP_DESCRIPTION = 'Review Ware Web App DUOC'
+PWA_APP_THEME_COLOR = '#87EFC3'
+PWA_APP_BACKGROUND_COLOR = '#fff'
+PWA_APP_ICONS = [
+    {
+        'src': '/static/icons/128.png',
+        'sizes': '128x128'
+    },
+    {
+        'src': '/static/icons/256.png',
+        'sizes': '256x256'
+    },
+    {
+        'src': '/static/icons/512.png',
+        'sizes': '512x512'
+
+    }
+]
+
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
@@ -82,6 +121,18 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
+
+#AUTH backends
+AUTHENTICATION_BACKENDS = [
+    
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+   
+]
 
 
 # Password validation
